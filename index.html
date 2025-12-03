@@ -589,8 +589,8 @@
             </div>
         </div>
     </div>
-   
-    <script>
+    
+<script>
         const imagesWrapper = document.getElementById('images-wrapper');
         const randomButton = document.getElementById('randomImageButton');
         const specialButton = document.getElementById('specialImageButton');
@@ -600,12 +600,17 @@
         const TOTAL_IMAGES = 12;
         const SPECIAL_IMAGE_PATH = 'images/0.png';
         
+        // Define constants for the original button content
+        const RANDOM_BUTTON_CONTENT = '<i class="fas fa-random"></i><span>Show Random Images</span>'; 
+        const SPECIAL_BUTTON_CONTENT = '<i class="fas fa-home"></i><span>Back To Ready</span>';       
+
         let currentImageIndices = []; // Array to track indices of all displayed images
         let imagesLoaded = 0; // Counter for loaded images
 
         // Function to randomly select 'BIG' or 'LITTLE'
         function getRandomWord() {
-            const words = ["big", "little"];
+            // Converted to uppercase to match the visual style of the CSS
+            const words = ["BIG", "LITTLE"]; 
             const randomIndex = Math.floor(Math.random() * words.length);
             return words[randomIndex];
         }
@@ -662,6 +667,8 @@
 
                 // Add an event listener to each image
                 img.addEventListener('load', handleImageLoad);
+                // Handle image load error (important for preventing stuck loading state)
+                img.addEventListener('error', handleImageLoad); 
 
                 container.appendChild(img);
                 container.appendChild(overlay); // Append overlay to the container
@@ -677,28 +684,34 @@
         imageSlider.addEventListener('input', function() {
             const count = parseInt(this.value);
             updateImageSlots(count);
-            specialButton.innerHTML = '<i class="fas fa-home"></i><span>Back To Ready</span>';
+            // Ensure the special button content is correctly displayed
+            specialButton.innerHTML = SPECIAL_BUTTON_CONTENT;
         });
         
         // === Button Feedback ===
         function setButtonLoading(button, isLoading) {
-            const originalContent = button.innerHTML;
             
             if (isLoading) {
                 button.classList.add('loading');
                 button.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Loading...</span>';
             } else {
                 button.classList.remove('loading');
-                button.innerHTML = originalContent;
+                // Restore the original content using constants
+                if (button.id === 'randomImageButton') {
+                    button.innerHTML = RANDOM_BUTTON_CONTENT;
+                } else if (button.id === 'specialImageButton') {
+                    button.innerHTML = SPECIAL_BUTTON_CONTENT;
+                }
             }
         }
 
         // === Image Load Handler ===
         function handleImageLoad(event) {
             const img = event.target;
-            img.classList.remove('image-loading');
+            // The loading class is removed regardless of load success or failure
+            img.classList.remove('image-loading'); 
 
-            // Check if all images have finished loading
+            // Check if all images have finished loading (by checking if the random button is still in a loading state)
             const allImagesLoaded = Array.from(imagesWrapper.querySelectorAll('.flashcard-image')).every(
                 img => !img.classList.contains('image-loading')
             );
@@ -751,7 +764,7 @@
                     changeImage(img, newImagePath);
                 });
                 
-                specialButton.innerHTML = '<i class="fas fa-home"></i><span>Back To Ready</span>';
+                specialButton.innerHTML = SPECIAL_BUTTON_CONTENT; // Ensure correct content is set
                 
                 // 2. Set a second timeout to make the text disappear
                 setTimeout(() => {
