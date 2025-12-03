@@ -748,32 +748,28 @@
                 overlay.classList.remove('show-text');
             });
 
-            // The main action happens after a short delay
+             // The main action happens after a short delay (Text APPEARS here)
             setTimeout(() => {
-                imageElements.forEach((img, index) => {
-                    // 1. Get a random word (BIG or LITTLE) and set the overlay text
-                    const randomWord = getRandomWord();
-                    overlays[index].textContent = randomWord; 
-                    overlays[index].classList.add('show-text'); // Show text
-
-                    // Get next image from shuffle bag
-                    const newIndex = getNextShuffledImage();
-                    currentImageIndices.push(newIndex);
-                    const newImagePath = `images/${newIndex}.png`;
-
-                    changeImage(img, newImagePath);
-                });
                 
-                specialButton.innerHTML = SPECIAL_BUTTON_CONTENT; // Ensure correct content is set
+                // ... (Logic to set BIG/LITTLE and show overlays) ...
                 
-                // 2. Set a second timeout to make the text disappear
+                // 2. Set a second timeout to make the text disappear AND load images
                 setTimeout(() => {
+                    // --- STEP 3: TEXT DISAPPEARS & IMAGE LOAD STARTS ---
                     overlays.forEach(overlay => {
                         overlay.classList.remove('show-text'); // Hide text
                     });
-                }, textDisplayDuration);
 
-                // Note: The loading state removal for the button is handled in the handleImageLoad function 
+                    // Load images immediately after text disappears
+                    imageElements.forEach((img, index) => {
+                        const newIndex = currentImageIndices[index]; // Use the index we stored
+                        const newImagePath = `images/${newIndex}.png`;
+                        changeImage(img, newImagePath);
+                    });
+                    // Note: The loading state removal for the button is still handled in handleImageLoad
+                    
+                }, textDisplayDuration);
+                
             }, 300); // Small delay to allow the loading state to register
         });
 
