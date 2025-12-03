@@ -55,9 +55,10 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
         #myImage {
+        #myImage {
             width: 400px;
             height: 400px;
-            object-fit: cover;
+            object-fit: contain; /* CHANGED from 'cover' to 'contain' */
             display: block;
             opacity: 1;
             transition: opacity 0.3s ease-in-out;
