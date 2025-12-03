@@ -15,6 +15,10 @@
     <link rel="preload" as="image" href="images/6.png">
     <link rel="preload" as="image" href="images/7.png">
     <link rel="preload" as="image" href="images/8.png">
+    <link rel="preload" as="image" href="images/9.png">
+    <link rel="preload" as="image" href="images/10.png">
+    <link rel="preload" as="image" href="images/11.png">
+    <link rel="preload" as="image" href="images/12.png">
     <!-- PRELOAD INSTRUCTIONS END HERE -->
     <style>
        h1 {
@@ -117,7 +121,7 @@
     </style>
 </head>
 <body>
-    <h1>Word Picture Challenge</h1>
+    <h1>u-z Challenge</h1>
     <div id="image-container">
         <img id="myImage" src="images/0.png" alt="Currently displayed image" decoding="async">
     </div>
@@ -132,9 +136,16 @@
         const randomButton = document.getElementById('randomImageButton');
         const specialButton = document.getElementById('specialImageButton');
         const textOverlay = document.getElementById('text-overlay');
-        const TOTAL_IMAGES = 8;
+        const TOTAL_IMAGES = 12; // UPDATED FOR 1-12 IMAGES
         let currentImageIndex = 0;
         const SPECIAL_IMAGE_PATH = 'images/0.png';
+
+        // Function to randomly select 'BIG' or 'LITTLE'
+        function getRandomWord() {
+            const words = ["BIG", "LITTLE"];
+            const randomIndex = Math.floor(Math.random() * words.length);
+            return words[randomIndex];
+        }
 
         // === SHUFFLE BAG SYSTEM ===
         let shuffleBag = [];
@@ -194,6 +205,10 @@
         // === Random Button with Shuffle Bag ===
         randomButton.addEventListener('click', function() {
             if (randomButton.classList.contains('loading')) return;
+
+            // 1. Get a random word (BIG or LITTLE) and set the overlay text
+            const randomWord = getRandomWord();
+            textOverlay.textContent = randomWord; 
 
             randomButton.classList.add('loading');
             textOverlay.classList.add('show-text');
