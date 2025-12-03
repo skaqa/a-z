@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Vocabulary Flashcard</title>
+    <title>U-Z Vocabulary Challenge | Interactive Flashcards</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- PRELOAD INSTRUCTIONS START HERE -->
     <link rel="preload" as="image" href="images/background.png">
     <link rel="preload" as="image" href="images/0.png">
@@ -21,85 +25,247 @@
     <link rel="preload" as="image" href="images/12.png">
     <!-- PRELOAD INSTRUCTIONS END HERE -->
     <style>
-       h1 {
-            font-family: 'Comic Sans MS', sans-serif;
-            font-size: 2.5em;
-            text-align: center;
-            margin-top: 50px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        :root {
+            --primary-blue: #4361ee;
+            --primary-green: #4cc9f0;
+            --primary-dark: #2b2d42;
+            --primary-light: #f8f9fa;
+            --accent-purple: #7209b7;
+            --accent-orange: #f72585;
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.15);
+            --radius-sm: 10px;
+            --radius-md: 15px;
+            --radius-lg: 20px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        h1:hover {
-            transform: scale(1.1);
-            transition: transform 0.3s ease;
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-       
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
             margin: 0;
-            background-color: #f4f4f9;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             background-image: url('images/background.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            background-attachment: fixed;
+            padding: 20px;
+            color: var(--primary-dark);
         }
-        
-        /* Container for the slider and its label */
-        #controls-container {
-            margin-bottom: 20px;
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            gap: 30px;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        #image-slider-label {
-            margin-bottom: 10px;
-            font-size: 1.1em;
-            font-weight: bold;
-        }
-
-        /* Container for multiple images */
-        #images-wrapper {
-            display: flex;
-            gap: 15px; /* Reduced space between images */
+        .header {
+            text-align: center;
+            width: 100%;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--primary-green);
             margin-bottom: 20px;
         }
 
-        .image-container {
-            position: relative; /* Crucial for positioning the overlay */
-            border: 5px solid #ccc;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        h1 {
+            font-family: 'Nunito', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            letter-spacing: -0.5px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            padding-bottom: 15px;
         }
 
-        /* Styling for individual images (new default is for 3 images) */
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-green), var(--accent-orange));
+            border-radius: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #6c757d;
+            max-width: 600px;
+            margin: 0 auto 25px;
+            line-height: 1.5;
+        }
+
+        /* Controls Panel */
+        .controls-panel {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 25px 35px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(67, 97, 238, 0.1);
+        }
+
+        .panel-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .panel-title i {
+            color: var(--primary-blue);
+            font-size: 1.6rem;
+        }
+
+        .slider-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+        }
+
+        #image-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 12px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, var(--primary-green), var(--primary-blue));
+            outline: none;
+            opacity: 0.9;
+            transition: var(--transition);
+        }
+
+        #image-slider:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+
+        #image-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            border: 3px solid var(--primary-blue);
+            transition: var(--transition);
+        }
+
+        #image-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            background: var(--primary-light);
+        }
+
+        .slider-value {
+            font-weight: 700;
+            color: var(--primary-blue);
+            font-size: 1.3rem;
+            background: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+            min-width: 60px;
+            text-align: center;
+        }
+
+        /* Images Wrapper */
+        #images-wrapper {
+            display: flex;
+            gap: 25px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            transition: var(--transition);
+        }
+
+        .image-container {
+            position: relative;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            border: 8px solid white;
+            background: white;
+        }
+
+        .image-container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        }
+
         .flashcard-image {
-            width: 250px; /* Base size for 3 images */
-            height: 250px; 
-            object-fit: contain; /* Keeps the entire image visible */
+            object-fit: contain;
             display: block;
             opacity: 1;
-            transition: opacity 0.3s ease-in-out;
+            transition: opacity 0.4s ease-in-out;
+            background: white;
         }
         
-        /* Size adjustment for ONE image view */
+        /* Size adjustments */
         .images-wrapper-1 .flashcard-image {
-            width: 400px; /* Keep single image large */
-            height: 400px;
+            width: 450px;
+            height: 450px;
         }
         
-        /* Size adjustment for TWO images view */
         .images-wrapper-2 .flashcard-image {
-            width: 320px; /* Adjusted width for 2 images */
-            height: 320px;
+            width: 380px;
+            height: 380px;
         }
         
-        /* Overlay text styles */
+        .images-wrapper-3 .flashcard-image {
+            width: 300px;
+            height: 300px;
+        }
+        
+        /* Overlay text */
         .image-overlay-text {
             position: absolute;
             top: 0;
@@ -110,75 +276,318 @@
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            font-family: 'Comic Sans MS', sans-serif;
-            font-size: 2.5em; 
-            font-weight: bold;
+            font-family: 'Nunito', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 900;
             color: white;
-            background-color: rgba(0, 0, 0, 0.8);
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.9), rgba(114, 9, 183, 0.9));
             opacity: 0;
-            /* Note: We will handle the fade-out instantly or via JS, 
-               so the CSS transition time is not used for the delay */
-            transition: opacity 0.3s ease-in-out; 
+            transition: opacity 0.3s ease-in-out;
             pointer-events: none;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
         }
 
         .show-text {
             opacity: 1 !important;
         }
 
-
         .image-loading {
-            opacity: 0;
+            opacity: 0.5;
         }
-        #button-group {
+
+        /* Buttons Panel */
+        .buttons-panel {
             display: flex;
-            gap: 15px;
+            gap: 25px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
         }
+
         .action-button {
-            padding: 12px 25px;
-            font-size: 18px;
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
             cursor: pointer;
             border: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
+            border-radius: 12px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            min-width: 220px;
+            box-shadow: var(--shadow-md);
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
+
+        .action-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: width 0.4s ease;
+            z-index: -1;
+        }
+
+        .action-button:hover:before {
+            width: 100%;
+        }
+
+        .action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .action-button:active {
+            transform: translateY(-2px);
+        }
+
         #randomImageButton {
-            background-color: #007bff;
+            background: linear-gradient(135deg, var(--primary-blue), #3a0ca3);
             color: white;
         }
+
         #randomImageButton:hover {
-            background-color: #0056b3;
+            background: linear-gradient(135deg, #3a56e4, #2d0a8a);
         }
+
         #specialImageButton {
-            background-color: #28a745;
+            background: linear-gradient(135deg, var(--primary-green), #2a9d8f);
             color: white;
         }
+
         #specialImageButton:hover {
-            background-color: #1e7e34;
+            background: linear-gradient(135deg, #3accef, #21867a);
         }
+
         .loading {
-            background-color: #ffc107 !important;
+            background: linear-gradient(135deg, #ffb347, #ffcc33) !important;
             cursor: wait !important;
             pointer-events: none;
         }
+
+        /* Footer */
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #6c757d;
+            font-size: 0.9rem;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .stat-item i {
+            color: var(--primary-blue);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .images-wrapper-1 .flashcard-image {
+                width: 400px;
+                height: 400px;
+            }
+            
+            .images-wrapper-2 .flashcard-image {
+                width: 350px;
+                height: 350px;
+            }
+            
+            .images-wrapper-3 .flashcard-image {
+                width: 280px;
+                height: 280px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .images-wrapper-1 .flashcard-image {
+                width: 350px;
+                height: 350px;
+            }
+            
+            .images-wrapper-2 .flashcard-image {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .images-wrapper-3 .flashcard-image {
+                width: 250px;
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.3rem;
+            }
+            
+            .controls-panel {
+                padding: 20px;
+            }
+            
+            .buttons-panel {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .action-button {
+                width: 100%;
+                max-width: 350px;
+            }
+            
+            #images-wrapper {
+                gap: 20px;
+            }
+            
+            .images-wrapper-1 .flashcard-image,
+            .images-wrapper-2 .flashcard-image,
+            .images-wrapper-3 .flashcard-image {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .image-overlay-text {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .images-wrapper-1 .flashcard-image,
+            .images-wrapper-2 .flashcard-image,
+            .images-wrapper-3 .flashcard-image {
+                width: 260px;
+                height: 260px;
+            }
+            
+            .image-overlay-text {
+                font-size: 3rem;
+            }
+        }
+
+        /* Animation for initial load */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container, .header, .controls-panel, #images-wrapper, .buttons-panel {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .controls-panel { animation-delay: 0.1s; }
+        #images-wrapper { animation-delay: 0.2s; }
+        .buttons-panel { animation-delay: 0.3s; }
     </style>
 </head>
 <body>
-    <h1>u-z Challenge</h1>
+    <div class="container">
+        <div class="header">
+            <h1>U-Z Vocabulary Challenge</h1>
+            <p class="subtitle">Interactive flashcards for learning vocabulary. Adjust the slider to change the number of images displayed.</p>
+        </div>
 
-    <div id="controls-container">
-        <label for="image-slider" id="image-slider-label">Images to Show: 1</label>
-        <input type="range" id="image-slider" min="1" max="3" value="1">
-    </div>
+        <div class="controls-panel">
+            <div class="panel-title">
+                <i class="fas fa-sliders-h"></i>
+                <span>Display Controls</span>
+            </div>
+            
+            <div class="slider-container">
+                <div class="slider-label">
+                    <span>Number of Flashcards</span>
+                    <span class="slider-value" id="slider-value">1</span>
+                </div>
+                <input type="range" id="image-slider" min="1" max="3" value="1">
+                <div class="slider-help">Move the slider to adjust how many flashcards are shown simultaneously</div>
+            </div>
+        </div>
 
-    <div id="images-wrapper" class="images-wrapper-1">
-        <!-- Images and Overlays will be dynamically inserted here -->
-    </div>
+        <div id="images-wrapper" class="images-wrapper-1">
+            <!-- Images and Overlays will be dynamically inserted here -->
+        </div>
 
-    <div id="button-group">
-        <button id="randomImageButton" class="action-button">Show Random Image</button>
-        <button id="specialImageButton" class="action-button">Back To Ready</button>
+        <div class="buttons-panel">
+            <button id="randomImageButton" class="action-button">
+                <i class="fas fa-random"></i>
+                <span>Show Random Images</span>
+            </button>
+            <button id="specialImageButton" class="action-button">
+                <i class="fas fa-home"></i>
+                <span>Back To Ready</span>
+            </button>
+        </div>
+
+        <div class="footer">
+            <p>U-Z Vocabulary Challenge • Interactive Learning Tool</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <i class="fas fa-images"></i>
+                    <span>Total Images: 12</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>Shuffle Algorithm: Fisher-Yates</span>
+                </div>
+            </div>
+        </div>
     </div>
    
     <script>
@@ -186,12 +595,13 @@
         const randomButton = document.getElementById('randomImageButton');
         const specialButton = document.getElementById('specialImageButton');
         const imageSlider = document.getElementById('image-slider');
-        const imageSliderLabel = document.getElementById('image-slider-label');
+        const sliderValue = document.getElementById('slider-value');
 
         const TOTAL_IMAGES = 12;
         const SPECIAL_IMAGE_PATH = 'images/0.png';
         
         let currentImageIndices = []; // Array to track indices of all displayed images
+        let imagesLoaded = 0; // Counter for loaded images
 
         // Function to randomly select 'BIG' or 'LITTLE'
         function getRandomWord() {
@@ -241,7 +651,7 @@
                 img.id = `myImage_${i}`;
                 img.className = 'flashcard-image';
                 img.src = SPECIAL_IMAGE_PATH; // Start with the ready image
-                img.alt = `Currently displayed image ${i + 1}`;
+                img.alt = `Vocabulary flashcard ${i + 1}`;
                 img.decoding = 'async';
                 
                 // Overlay element
@@ -257,28 +667,29 @@
                 container.appendChild(overlay); // Append overlay to the container
                 imagesWrapper.appendChild(container);
             }
-            imageSliderLabel.textContent = `Images to Show: ${count}`;
+            sliderValue.textContent = count;
         }
         
         // Initial creation of 1 image slot
         updateImageSlots(parseInt(imageSlider.value));
 
-
         // === Slider Event Listener ===
         imageSlider.addEventListener('input', function() {
             const count = parseInt(this.value);
             updateImageSlots(count);
-            specialButton.textContent = "Back To Ready";
+            specialButton.innerHTML = '<i class="fas fa-home"></i><span>Back To Ready</span>';
         });
         
         // === Button Feedback ===
-        function setButtonLoading(button, originalText, isLoading) {
+        function setButtonLoading(button, isLoading) {
+            const originalContent = button.innerHTML;
+            
             if (isLoading) {
                 button.classList.add('loading');
-                button.textContent = 'Loading...';
+                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Loading...</span>';
             } else {
                 button.classList.remove('loading');
-                button.textContent = originalText;
+                button.innerHTML = originalContent;
             }
         }
 
@@ -287,15 +698,15 @@
             const img = event.target;
             img.classList.remove('image-loading');
 
-            // Check if all images have finished loading (by checking if the random button is still in a loading state)
+            // Check if all images have finished loading
             const allImagesLoaded = Array.from(imagesWrapper.querySelectorAll('.flashcard-image')).every(
                 img => !img.classList.contains('image-loading')
             );
 
             if (allImagesLoaded && randomButton.classList.contains('loading')) {
-                setButtonLoading(randomButton, "Show Random Image", false);
+                setButtonLoading(randomButton, false);
             } else if (allImagesLoaded && specialButton.classList.contains('loading')) {
-                setButtonLoading(specialButton, "Back To Ready", false);
+                setButtonLoading(specialButton, false);
             }
         }
         
@@ -310,7 +721,7 @@
         randomButton.addEventListener('click', function() {
             if (randomButton.classList.contains('loading')) return;
 
-            setButtonLoading(randomButton, "Show Random Image", true);
+            setButtonLoading(randomButton, true);
 
             const imageElements = imagesWrapper.querySelectorAll('.flashcard-image');
             const overlays = imagesWrapper.querySelectorAll('.image-overlay-text');
@@ -324,7 +735,7 @@
                 overlay.classList.remove('show-text');
             });
 
-            // The main action happens after a short delay (e.g., 500ms for button feedback)
+            // The main action happens after a short delay
             setTimeout(() => {
                 imageElements.forEach((img, index) => {
                     // 1. Get a random word (BIG or LITTLE) and set the overlay text
@@ -340,7 +751,7 @@
                     changeImage(img, newImagePath);
                 });
                 
-                specialButton.textContent = "Back To Ready";
+                specialButton.innerHTML = '<i class="fas fa-home"></i><span>Back To Ready</span>';
                 
                 // 2. Set a second timeout to make the text disappear
                 setTimeout(() => {
@@ -350,14 +761,14 @@
                 }, textDisplayDuration);
 
                 // Note: The loading state removal for the button is handled in the handleImageLoad function 
-            }, 500); // Small delay to allow the loading state to register
+            }, 300); // Small delay to allow the loading state to register
         });
 
         // === Special Button (Back to Ready) Logic ===
         specialButton.addEventListener('click', function() {
             if (currentImageIndices.every(index => index === 0)) return; // Already at ready state
 
-            setButtonLoading(specialButton, "Back To Ready", true);
+            setButtonLoading(specialButton, true);
 
             // Hide all overlays instantly
             imagesWrapper.querySelectorAll('.image-overlay-text').forEach(overlay => {
@@ -373,9 +784,15 @@
             // Note: The loading state removal for the button is handled in the handleImageLoad function 
         });
 
-        // Initial setup for buttons
-        randomButton.textContent = "Show Random Image";
-        specialButton.textContent = "Back To Ready"; 
+        // Add a subtle hover effect to the entire container
+        document.querySelector('.container').addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+            this.style.transition = 'transform 0.3s ease';
+        });
+
+        document.querySelector('.container').addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
     </script>
 </body>
 </html>
