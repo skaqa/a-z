@@ -23,8 +23,50 @@
     <link rel="preload" as="image" href="images/10.png">
     <link rel="preload" as="image" href="images/11.png">
     <link rel="preload" as="image" href="images/12.png">
+    <!-- ADDED PRELOADS FOR IMAGES 13-52 -->
+    <link rel="preload" as="image" href="images/13.png">
+    <link rel="preload" as="image" href="images/14.png">
+    <link rel="preload" as="image" href="images/15.png">
+    <link rel="preload" as="image" href="images/16.png">
+    <link rel="preload" as="image" href="images/17.png">
+    <link rel="preload" as="image" href="images/18.png">
+    <link rel="preload" as="image" href="images/19.png">
+    <link rel="preload" as="image" href="images/20.png">
+    <link rel="preload" as="image" href="images/21.png">
+    <link rel="preload" as="image" href="images/22.png">
+    <link rel="preload" as="image" href="images/23.png">
+    <link rel="preload" as="image" href="images/24.png">
+    <link rel="preload" as="image" href="images/25.png">
+    <link rel="preload" as="image" href="images/26.png">
+    <link rel="preload" as="image" href="images/27.png">
+    <link rel="preload" as="image" href="images/28.png">
+    <link rel="preload" as="image" href="images/29.png">
+    <link rel="preload" as="image" href="images/30.png">
+    <link rel="preload" as="image" href="images/31.png">
+    <link rel="preload" as="image" href="images/32.png">
+    <link rel="preload" as="image" href="images/33.png">
+    <link rel="preload" as="image" href="images/34.png">
+    <link rel="preload" as="image" href="images/35.png">
+    <link rel="preload" as="image" href="images/36.png">
+    <link rel="preload" as="image" href="images/37.png">
+    <link rel="preload" as="image" href="images/38.png">
+    <link rel="preload" as="image" href="images/39.png">
+    <link rel="preload" as="image" href="images/40.png">
+    <link rel="preload" as="image" href="images/41.png">
+    <link rel="preload" as="image" href="images/42.png">
+    <link rel="preload" as="image" href="images/43.png">
+    <link rel="preload" as="image" href="images/44.png">
+    <link rel="preload" as="image" href="images/45.png">
+    <link rel="preload" as="image" href="images/46.png">
+    <link rel="preload" as="image" href="images/47.png">
+    <link rel="preload" as="image" href="images/48.png">
+    <link rel="preload" as="image" href="images/49.png">
+    <link rel="preload" as="image" href="images/50.png">
+    <link rel="preload" as="image" href="images/51.png">
+    <link rel="preload" as="image" href="images/52.png">
     <!-- PRELOAD INSTRUCTIONS END HERE -->
     <style>
+        /* ... (CSS remains the same) ... */
         :root {
             --primary-blue: #4361ee;
             --primary-green: #4cc9f0;
@@ -580,7 +622,7 @@
             <div class="stats">
                 <div class="stat-item">
                     <i class="fas fa-images"></i>
-                    <span>Total Images: 12</span>
+                    <span>Total Images: 52</span>
                 </div>
                 <div class="stat-item">
                     <i class="fas fa-sync-alt"></i>
@@ -597,7 +639,10 @@
         const imageSlider = document.getElementById('image-slider');
         const sliderValue = document.getElementById('slider-value');
 
-        const TOTAL_IMAGES = 12;
+        // **********************************************
+        // ********** CHANGED TO 52 IMAGES **************
+        // **********************************************
+        const TOTAL_IMAGES = 52; 
         const SPECIAL_IMAGE_PATH = 'images/0.png';
         
         // Define constants for the original button content
@@ -624,6 +669,7 @@
 
         function refillAndShuffleBag() {
             shuffleBag = [];
+            // Loop goes from 1 to TOTAL_IMAGES (now 52)
             for (let i = 1; i <= TOTAL_IMAGES; i++) {
                 shuffleBag.push(i);
             }
